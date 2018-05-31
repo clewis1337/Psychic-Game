@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Loops</title>
+  </head>
+  <body>
+
+    <h1>Welcome to the psychic game</h1>
+    <p>Guess what letter I'm thinking of</p>
+
+    <p id="playerChoice">you chose: </p>
+    <br>
+    <p id="computerChoice">computer chose: </p>
+    <br>
+    <p id="wins">wins: </p>
+    <br>
+    <p id="losses">losses: </p>
+    <br>
+    <p id="guesses">guesses left: </p>
+    <br>
+    <p id="guesses_sofar">guesses so far: </p>
+
+    <script>
+
+      let game = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+      let guesses_sofar = [];
+      let guesses = 10;
+      let wins = 0;
+      let losses = 0;
+      let computerMove = game[Math.floor(Math.random() * (1+ (game.length-1)))].toLowerCase(); //on page load
+      //console.log("START computer move " + computerMove);
+
+      document.onkeypress = function (e) {
+        let key = e.key;
+        let playerMove = key;
+
+        if (guesses===0) {  //RESET AFTER LOSS
+            losses++;
+            guesses_sofar = [];
+            guesses = 10;
+            computerMove = game[Math.floor(Math.random() * (1+ (game.length-1)))].toLowerCase(); //next pick  
+            console.log("LOSE computer move " + computerMove);
+            console.log("LOSE player move " + playerMove);                    
+        }
+
+        console.log("computer move " + computerMove);
+        console.log("player move " + playerMove);
+
+
+        if (computerMove===playerMove){  //RESET AFTER WIN
+            wins++;
+            guesses_sofar = [];
+            guesses = 10;
+            computerMove = game[Math.floor(Math.random() * (1+ (game.length-1)))].toLowerCase(); //next pick  
+            console.log("WIN computer move " + computerMove);
+            console.log("WIN player move " + playerMove);          
+        }
+        else{
+            guesses--;
+            guesses_sofar.push(playerMove);
+        }
+        
+        
+        document.getElementById("playerChoice").innerHTML = "you chose: " + key;
+        document.getElementById("guesses").innerHTML = "guesses left: " + guesses;
+       // document.getElementById("computerChoice").innerHTML = "computer chose: " + computerMove;
+        document.getElementById("wins").innerHTML = "wins: " + wins;
+        document.getElementById("losses").innerHTML = "losses: " + losses;
+        document.getElementById("guesses_sofar").innerHTML = "guesses so far: " + guesses_sofar;
+        
+
+
+
+
+      }
+
+
+    
+      
+    
+
+    </script>
+    
+  </body>
+</html>
